@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-     Page web créé dans le cadre du cours de web Dev le 01/09/2020
-     Auteur : José GIL
-     Email : jgil83000@gmail.com
--->
 <html lang="fr-FR">
     <head>
         <title>Exercice PHP 1 !</title>
