@@ -13,19 +13,21 @@
     </head>
     
     <body>
-        <h1>Exercice Table de 13 PHP</h1>
-        <table>
-            <tbody>
-                <?php
-                    for ($x = 1; $x <=12; $x++) {
-                        echo "<tr>";
-                        for ($y = 1; $y <=12; $y++) {
-                            echo "<th>", $x*$y, "</th>";
+        <?php
+            for ($nb = 2; $nb <=12; $nb++) {
+                echo "<h1>Exercice Table de ",$nb," PHP</h1>";
+                echo "<table>";
+                    echo "<tbody>";
+                        for ($x = 1; $x <=$nb; $x++) {
+                            echo "<tr>";
+                            for ($y = 1; $y <=$nb; $y++) {
+                                echo "<th>", $x*$y, "</th>";
+                            }
+                            echo "</tr>";
                         }
-                        echo "</tr>";
-                    }
-                ?>
-            </tbody>
-        </table>
+                    echo "</tbody>";
+                echo "</table>";
+            }
+        ?>
     </body>
 </html>
