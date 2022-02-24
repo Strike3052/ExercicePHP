@@ -16,7 +16,11 @@
                         for ($x = 1; $x <=$nb; $x++) {
                             echo "<tr>";
                             for ($y = 1; $y <=$nb; $y++) {
-                                echo "<th>", $x*$y, "</th>";
+                                if ($x==1 or $y==1) {
+                                        echo "<th class='cont'>", $x*$y, "</th>";
+                                } else {
+                                        echo "<th>", $x*$y, "</th>";
+                                }
                             }
                             echo "</tr>";
                         }
