@@ -9,24 +9,23 @@
     
     <body>
         <?php
-            for ($nb = 2; $nb <=12; $nb++) {
-                echo "<h1>Exercice Table de ",$nb," PHP</h1>";
-                echo "<table>";
-                    echo "<tbody>";
-                        for ($x = 1; $x <=$nb; $x++) {
-                            echo "<tr>";
-                            for ($y = 1; $y <=$nb; $y++) {
-                                if ($x==1 or $y==1) {
-                                        echo "<th class='cont'>", $x*$y, "</th>";
-                                } else {
-                                        echo "<th>", $x*$y, "</th>";
-                                }
+            $nb = $_GET['nb'];
+            echo "<h1>Exercice Table de ",$nb," PHP</h1>";
+            echo "<table>";
+                echo "<tbody>";
+                    for ($x = 1; $x <=$nb; $x++) {
+                        echo "<tr>";
+                        for ($y = 1; $y <=$nb; $y++) {
+                            if ($x==1 or $y==1) {
+                                    echo "<th class='cont'>", $x*$y, "</th>";
+                            } else {
+                                    echo "<th>", $x*$y, "</th>";
                             }
-                            echo "</tr>";
                         }
-                    echo "</tbody>";
-                echo "</table>";
-            }
+                        echo "</tr>";
+                    }
+                echo "</tbody>";
+            echo "</table>";
         ?>
     </body>
 </html>
