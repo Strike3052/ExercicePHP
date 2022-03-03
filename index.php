@@ -8,6 +8,11 @@
     </head>
     
     <body>
+        <form method="GET">
+            <label for="nb"> Nombre : </label>
+            <input type="number" name="nb" id="nb" required>
+            <input type="submit">
+        </form>
         <?php
             $nb = $_GET['nb'];
             echo "<h1>Exercice Table de ",$nb," PHP</h1>";
