@@ -9,12 +9,26 @@
     
     <body>
         <form method="GET">
-            <label for="nb"> Nombre : </label>
+            <!---<label for="nb"> Nombre : </label>
             <input type="number" name="nb" id="nb" required>
+            <input type="submit">-->
+             <?php
+                echo "<select name='nb'>";
+                for ($x = 1; $x <=50; $x++) {
+                    if ($nb = $_GET['nb'] == $x)
+                    {
+                        echo "<option value='",$x,"' selected>",$x,"</option>";
+                    } else {
+                        echo "<option value='",$x,"'>",$x,"</option>";
+                    }
+                }
+                echo "</select>";
+             ?>
             <input type="submit">
         </form>
         <?php
             $nb = $_GET['nb'];
+            
             echo "<h1>Exercice Table de ",$nb," PHP</h1>";
             echo "<table>";
                 echo "<tbody>";
