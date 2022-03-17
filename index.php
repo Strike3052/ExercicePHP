@@ -7,28 +7,37 @@
         <link href="style.css" rel="stylesheet "type="text/css">
     </head>
     
-    <body>
-        <form method="GET">
-            <!---<label for="nb"> Nombre : </label>
-            <input type="number" name="nb" id="nb" required>
-            <input type="submit">-->
-             <?php
-                echo "<select name='nb'>";
-                for ($x = 1; $x <=50; $x++) {
-                    if ($nb = $_GET['nb'] == $x)
-                    {
-                        echo "<option value='",$x,"' selected>",$x,"</option>";
-                    } else {
-                        echo "<option value='",$x,"'>",$x,"</option>";
-                    }
+    <?php
+        function getListInt(&$arg1, $arg2) {
+            echo "<select name='nb' onchange='submit()'>";
+            for ($x = 1; $x <=$arg2; $x++) {
+                if ($nb = $_GET['nb'] == $x)
+                {
+                    echo "<option value='",$x,"' selected>",$x,"</option>";
+                } else {
+                    echo "<option value='",$x,"'>",$x,"</option>";
                 }
-                echo "</select>";
-             ?>
-            <input type="submit">
-        </form>
-        <?php
-            $nb = $_GET['nb'];
-            
+            }
+            echo "</select>";
+         }
+         
+         function getRadioInt(&$arg1, $arg2) {
+            echo "<p> Selectionnez la dimension du tableau : </p>";
+            for ($x = 1; $x <=50; $x++) {
+                echo "<div>";
+                if ($nb = $_GET['nb'] === $x)
+                {
+                    echo "<input type='radio' name='nb' value='",$x,"' checked>";
+                } else {
+                    echo "<input type='radio' name='nb' value='",$x,"'>";
+                }
+                echo "<label for='",$x,"'>",$x,"</label>";
+                echo "</div>";
+            }
+            echo "<input type='submit'> ";
+         }
+         
+         function getTableDeNb($nb) {
             echo "<h1>Exercice Table de ",$nb," PHP</h1>";
             echo "<table>";
                 echo "<tbody>";
@@ -45,6 +54,30 @@
                     }
                 echo "</tbody>";
             echo "</table>";
+         }
+     ?>
+    
+    <body>
+        <form method="GET">
+             <?php
+                getListInt($nb, 50);
+
+                try {
+                    $dbh = new PDO('mysql:host=localhost;dbname=exercicephp', "root", "");
+                    
+                    $dbh->query('INSERT INTO `statistiques` (`Horodatage`, `Nb`) VALUES (CURRENT_TIME(), "2");');
+                    
+                    $dbh = null;
+                } catch (PDOException $e) {
+                    print "Erreur !: " . $e->getMessage() . "<br/>";
+                    die();
+                }
+             ?>
+        </form> 
+        <?php
+            if (isset($_GET['nb']) & $_GET['nb'] > 0 & $_GET['nb'] < 50){
+                getTableDeNb($_GET['nb']);
+            }
         ?>
     </body>
 </html>
