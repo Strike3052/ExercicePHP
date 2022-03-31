@@ -3,6 +3,12 @@ h1 {
 }
 
 table {
+    width:20%;
+    text-align:center;
+    border-collapse: collapse;
+}
+
+#table1 {
     width: 100%;
     border-collapse: collapse;
 }
@@ -12,6 +18,14 @@ th, tr {
     border-color: rgb(255,70,70);
     border-width: 2px;
     padding: 3px;
+}
+
+td {
+    border-style: solid;
+    border-color: rgb(255,70,70);
+    border-width: 2px;
+    padding: 3px;
+    width: 10%;
 }
 
 .cont {

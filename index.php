@@ -39,7 +39,7 @@
          
          function getTableDeNb($nb) {
             echo "<h1>Exercice Table de ",$nb," PHP</h1>";
-            echo "<table>";
+            echo "<table id='table1'>";
                 echo "<tbody>";
                     for ($x = 1; $x <=$nb; $x++) {
                         echo "<tr>";
@@ -73,11 +73,7 @@
             try {
                 $dbh = new PDO('mysql:host=localhost;dbname=exercicephp', "root", "");
 
-                $dbh->query("
-                    CREATE TABLE IF NOT EXISTS `logs` (
-                      `Horodatage` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      `Nb` tinyint(4) NOT NULL,
-                    ) ;");
+                $dbh->query("CREATE TABLE `exercicephp`.`logs` ( `Horodatage` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `Nb` TINYINT NOT NULL ) ENGINE = MyISAM;");
 
                 $dbh = null;
             } catch (PDOException $e) {
@@ -88,25 +84,25 @@
          
          function getTables(): void {
                         //Connect to MySQL using the PDO object.
-            $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+            $pdo = new PDO('mysql:host=localhost;dbname=exercicephp', 'root', '');
 
             //Our SQL statement, which will select a list of tables from the current MySQL database.
-            $sql = "SHOW TABLES";
+            $sql = "select nb, count(*) as nbdemandes from logs group by nb order by nbdemandes";
 
             //Prepare our SQL statement,
-            $statement = $pdo->prepare($sql);
-
-            //Execute the statement.
-            $statement->execute();
+            $statement = $pdo->query($sql);
 
             //Fetch the rows from our statement.
-            $tables = $statement->fetchAll(PDO::FETCH_NUM);
+            $tables = $statement->fetchAll();
 
             //Loop through our table names.
             foreach($tables as $table){
                 //Print the table name out onto the page.
-                echo $table[0], '<br>';
+                // echo $table[0], ' | ', $table[1], '<br>';
+                echo "<table><tbody><tr><td>", $table[0], "</td><td>", $table[1],"</tr></tbody></table>";
+              
             }
+            
          }
      ?>
     
@@ -119,13 +115,17 @@
                 
                 logTableDemande($_GET['nb']);
                 
-                getTables();
+                
              ?>
         </form> 
         <?php
             if (isset($_GET['nb']) & $_GET['nb'] > 0 & $_GET['nb'] < 50){
                 getTableDeNb($_GET['nb']);
             }
+            
+            echo '<br>';
+            
+            getTables();
         ?>
     </body>
 </html>
