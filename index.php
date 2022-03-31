@@ -55,23 +55,71 @@
                 echo "</tbody>";
             echo "</table>";
          }
+         
+         function logTableDemande(int $nb): void {
+             try {
+                $dbh = new PDO('mysql:host=localhost;dbname=exercicephp', "root", "");
+
+                $dbh->query("INSERT INTO `logs` (`Nb`) VALUES ('$nb');");
+
+                $dbh = null;
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
+         }
+         
+         function createTable(): void {
+            try {
+                $dbh = new PDO('mysql:host=localhost;dbname=exercicephp', "root", "");
+
+                $dbh->query("
+                    CREATE TABLE IF NOT EXISTS `logs` (
+                      `Horodatage` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                      `Nb` tinyint(4) NOT NULL,
+                    ) ;");
+
+                $dbh = null;
+            } catch (PDOException $e) {
+                print "Erreur !: " . $e->getMessage() . "<br/>";
+                die();
+            }
+         }
+         
+         function getTables(): void {
+                        //Connect to MySQL using the PDO object.
+            $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+
+            //Our SQL statement, which will select a list of tables from the current MySQL database.
+            $sql = "SHOW TABLES";
+
+            //Prepare our SQL statement,
+            $statement = $pdo->prepare($sql);
+
+            //Execute the statement.
+            $statement->execute();
+
+            //Fetch the rows from our statement.
+            $tables = $statement->fetchAll(PDO::FETCH_NUM);
+
+            //Loop through our table names.
+            foreach($tables as $table){
+                //Print the table name out onto the page.
+                echo $table[0], '<br>';
+            }
+         }
      ?>
     
     <body>
         <form method="GET">
              <?php
+                #createTable();
+                
                 getListInt($nb, 50);
-
-                try {
-                    $dbh = new PDO('mysql:host=localhost;dbname=exercicephp', "root", "");
-                    
-                    $dbh->query('INSERT INTO `statistiques` (`Horodatage`, `Nb`) VALUES (CURRENT_TIME(), "2");');
-                    
-                    $dbh = null;
-                } catch (PDOException $e) {
-                    print "Erreur !: " . $e->getMessage() . "<br/>";
-                    die();
-                }
+                
+                logTableDemande($_GET['nb']);
+                
+                getTables();
              ?>
         </form> 
         <?php
